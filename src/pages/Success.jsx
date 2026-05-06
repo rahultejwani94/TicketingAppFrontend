@@ -6,7 +6,7 @@ export default function Success() {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const api_base_url = import.meta.env.VITE_API_BASE_URL;
+  const api_base_url = import.meta.env.VITE_API_BASE_URL || "http://192.168.1.4:8080";
 
   // AUTO DOWNLOAD PDF
   useEffect(() => {

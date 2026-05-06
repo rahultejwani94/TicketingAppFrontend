@@ -36,7 +36,7 @@ export default function Booking({ isAdmin = false }) {
 
   const upiId = import.meta.env.VITE_UPI_ID;
   const merchant = import.meta.env.VITE_MERCHANT_NAME;
-  const api_base_url = import.meta.env.VITE_API_BASE_URL;
+  const api_base_url = import.meta.env.VITE_API_BASE_URL || "http://192.168.1.4:8080";
 
   const upiLink = `upi://pay?pa=${upiId}&pn=${merchant}&am=${total}&tn=Ticket`;
 

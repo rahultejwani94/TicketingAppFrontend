@@ -9,7 +9,7 @@ export default function AdminLogin() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false); // 👈 NEW
 
-  const api_base_url = import.meta.env.VITE_API_BASE_URL;
+  const api_base_url = import.meta.env.VITE_API_BASE_URL || "http://192.168.1.4:8080";
 
   const handleLogin = async (e) => {
     e.preventDefault();
