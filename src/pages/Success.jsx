@@ -1,18 +1,17 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
+import API_BASE_URL from "../config/api";
 
 export default function Success() {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const api_base_url = import.meta.env.VITE_API_BASE_URL || "http://192.168.1.4:8080";
-
   // AUTO DOWNLOAD PDF
   useEffect(() => {
     if (state?.bookingId) {
       window.location.href =
-        `${api_base_url}/api/bookings/${state.bookingId}/pdf`;
+        `${API_BASE_URL}/api/bookings/${state.bookingId}/pdf`;
     }
   }, [state?.bookingId]);
 
@@ -55,7 +54,7 @@ export default function Success() {
         <button
           onClick={() =>
             window.location.href =
-              `${api_base_url}/api/bookings/${state.bookingId}/pdf`
+              `${API_BASE_URL}/api/bookings/${state.bookingId}/pdf`
           }
           className="mt-5 w-full bg-green-600 py-2 rounded-lg font-medium hover:opacity-90 transition"
         >

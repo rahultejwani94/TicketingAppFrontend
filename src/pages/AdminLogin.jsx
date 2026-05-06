@@ -2,20 +2,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
+import API_BASE_URL from "../config/api";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
 
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // 👈 NEW
-
-  const api_base_url = import.meta.env.VITE_API_BASE_URL || "http://192.168.1.4:8080";
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const admin_login_url = `${api_base_url}/api/admin/login`;
+      const admin_login_url = `${API_BASE_URL}/api/admin/login`;
       const res = await fetch(admin_login_url, {
         method: "POST",
         headers: {

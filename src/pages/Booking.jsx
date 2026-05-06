@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { QRCodeCanvas } from "qrcode.react";
+import API_BASE_URL from "../config/api";
 
 export default function Booking({ isAdmin = false }) {
   const isAdminFlow = isAdmin;
@@ -36,7 +37,6 @@ export default function Booking({ isAdmin = false }) {
 
   const upiId = import.meta.env.VITE_UPI_ID;
   const merchant = import.meta.env.VITE_MERCHANT_NAME;
-  const api_base_url = import.meta.env.VITE_API_BASE_URL || "http://192.168.1.4:8080";
 
   const upiLink = `upi://pay?pa=${upiId}&pn=${merchant}&am=${total}&tn=Ticket`;
 
@@ -112,7 +112,7 @@ export default function Booking({ isAdmin = false }) {
     try {
       setLoading(true);
 
-      const bookings_url = `${api_base_url}/api/bookings`;
+      const bookings_url = `${API_BASE_URL}/api/bookings`;
 
       const token = sessionStorage.getItem("adminToken");
 
