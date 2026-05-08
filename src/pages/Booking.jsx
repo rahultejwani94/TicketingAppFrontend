@@ -69,10 +69,33 @@ export default function Booking({ isAdmin = false }) {
   };
 
   const validateStep3 = () => {
-    if (!form.utr.trim()) {
+    const utr = form.utr.trim();
+
+    if (!utr) {
       toast.error("Enter UTR / Transaction ID");
       return false;
     }
+
+    // remove spaces
+    if (utr.includes(" ")) {
+      toast.error("UTR should not contain spaces");
+      return false;
+    }
+
+    // alphanumeric only
+    const utrRegex = /^[A-Za-z0-9]+$/;
+
+    if (!utrRegex.test(utr)) {
+      toast.error("Invalid UTR format");
+      return false;
+    }
+
+    // most UTRs are 12+ chars
+    if (utr.length < 10) {
+      toast.error("UTR is too short");
+      return false;
+    }
+
     return true;
   };
 
@@ -156,6 +179,30 @@ export default function Booking({ isAdmin = false }) {
     }
   };
 
+  const copyToClipboard = async (text) => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        // fallback for mobile Safari / older browsers
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+      }
+
+      toast.success("UPI ID copied");
+    } catch (err) {
+      toast.error("Failed to copy UPI ID");
+      console.error(err);
+    }
+  };
+
   return (
     <div className="min-h-screen px-4 py-8 flex justify-center text-white bg-gradient-to-b from-black via-[#0b0b1a] to-black">
       {loading && (
@@ -213,12 +260,55 @@ export default function Booking({ isAdmin = false }) {
           </p>
           {/* TITLE */}
           <h1 className="text-4xl font-bold">Book Your Ticket</h1>
+          {/* MOBILE */}
+          <div className="block md:hidden flex justify-center mt-3">
+            <button
+              onClick={() => navigate("/download-ticket")}
+              className="
+      text-sm
+      text-purple-300
+      hover:text-white
+      transition
+      underline underline-offset-4
+    "
+            >
+              🎟 Already booked? Download Ticket
+            </button>
+          </div>
           {/* SUBTEXT */}
           <p className="text-white/60">
             {isAdminFlow
               ? "Fill details → Create booking"
               : "Fill details → Pay → Confirm with UTR"}
           </p>{" "}
+          {/* DESKTOP */}
+          <div className="hidden md:block">
+            <button
+              onClick={() => navigate("/download-ticket")}
+              className="
+      fixed bottom-5 right-5 z-40
+      flex items-center gap-2
+      px-5 py-3
+      rounded-full
+      bg-gradient-to-r from-purple-600 to-pink-600
+      shadow-[0_8px_30px_rgba(168,85,247,0.35)]
+      hover:scale-105
+      hover:shadow-[0_10px_40px_rgba(236,72,153,0.45)]
+      transition-all duration-300
+      backdrop-blur-lg
+    "
+            >
+              <span className="text-xl">🎟</span>
+
+              <div className="text-left leading-tight">
+                <div className="text-white font-semibold text-sm">
+                  Already Booked?
+                </div>
+
+                <div className="text-white/80 text-xs">Download Ticket</div>
+              </div>
+            </button>
+          </div>
         </div>
 
         {/* STEP INDICATOR (CENTERED STRIPE STYLE) */}
@@ -226,8 +316,12 @@ export default function Booking({ isAdmin = false }) {
           <div className="flex gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10">
             {[
               { id: 1, label: "Details" },
-              ...(!isAdminFlow ? [{ id: 2, label: "Payment" }] : []),
-              { id: 3, label: "Confirm" },
+
+              ...(isAdminFlow
+                ? [{ id: 2, label: "Confirm" }]
+                : [{ id: 2, label: "Payment" }]),
+
+              ...(!isAdminFlow ? [{ id: 3, label: "Confirm" }] : []),
             ].map((s) => (
               <div
                 key={s.id}
@@ -341,6 +435,7 @@ export default function Booking({ isAdmin = false }) {
             </div>
 
             {/* PAYMENT */}
+            {/* PAYMENT */}
             {!isAdminFlow && step >= 2 && (
               <div>
                 <h2 className="text-lg font-semibold mb-3">Payment</h2>
@@ -348,31 +443,69 @@ export default function Booking({ isAdmin = false }) {
                 {isMobile ? (
                   <a
                     href={upiLink}
-                    className="block text-center bg-gradient-to-r from-purple-500 to-pink-600 py-2 rounded-lg"
+                    className="
+          block text-center
+          bg-gradient-to-r from-purple-500 to-pink-600
+          py-3 rounded-xl font-medium
+          hover:opacity-90 transition
+        "
                   >
-                    Pay Now
+                    Pay Now via UPI
                   </a>
                 ) : (
-                  <div className="p-4 border border-dashed border-white/30 rounded-xl text-center">
-                    {/* WHITE QR CARD */}
-                    <div className="bg-white p-4 rounded-xl inline-block shadow-[0_0_25px_rgba(255,255,255,0.2)]">
+                  <div className="p-4 border border-dashed border-white/20 rounded-2xl text-center bg-white/5">
+                    {/* QR */}
+                    <div className="bg-white p-4 rounded-xl inline-block shadow-[0_0_25px_rgba(255,255,255,0.15)]">
                       <QRCodeCanvas
                         value={upiLink}
-                        size={160}
+                        size={170}
                         bgColor="#ffffff"
                         fgColor="#000000"
                       />
                     </div>
 
                     <p className="text-xs text-white/60 mt-3">
-                      Scan this QR using any UPI app
+                      Scan using any UPI app
                     </p>
                   </div>
                 )}
 
+                {/* UPI ID COPY */}
+                <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-3">
+                  <p className="text-xs text-white/50 mb-2">
+                    Unable to scan? Pay directly using UPI ID
+                  </p>
+
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="truncate text-sm font-medium text-purple-300">
+                      {upiId}
+                    </div>
+
+                    <button
+                      onClick={() => copyToClipboard(upiId)}
+                      className="
+    flex items-center justify-center
+    w-9 h-9
+    rounded-lg
+    bg-white/10
+    hover:bg-white/20
+    transition
+  "
+                    >
+                      📋
+                    </button>
+                  </div>
+                </div>
+
                 <button
                   onClick={goToUTR}
-                  className="w-full mt-3 bg-purple-600 py-2 rounded-lg"
+                  className="
+        w-full mt-4
+        bg-purple-600
+        hover:bg-purple-500
+        py-2.5 rounded-xl
+        transition font-medium
+      "
                 >
                   I Have Paid
                 </button>

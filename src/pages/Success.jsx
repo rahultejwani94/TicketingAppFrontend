@@ -10,7 +10,7 @@ export default function Success() {
   // AUTO DOWNLOAD PDF
   useEffect(() => {
     if (state?.bookingId) {
-      window.location.href = `${API_BASE_URL}/api/bookings/${state.bookingId}/pdf`;
+      window.location.href = `${API_BASE_URL}/api/bookings/download/${state.bookingId}`; // Trigger download
     }
   }, [state?.bookingId]);
 
@@ -23,7 +23,7 @@ export default function Success() {
     `Tickets: ${state.qty}\n` +
     `Booking ID: ${state.bookingId}\n\n` +
     "Download your tickets here:\n" +
-    `${API_BASE_URL}/api/bookings/${state.bookingId}/pdf`;
+    `${API_BASE_URL}/api/bookings/download/${state.bookingId}`;
 
   // ✅ Proper UTF-8 encoding fix
   const encodedMessage = encodeURIComponent(message);
@@ -60,6 +60,9 @@ export default function Success() {
             <b>Tickets:</b> {state.qty}
           </p>
           <p>
+            <b>Booking Id:</b> {state.bookingId}
+          </p>
+          <p>
             <b>Total:</b> ₹{state.total}
           </p>
 
@@ -82,7 +85,7 @@ export default function Success() {
         {/* DOWNLOAD BUTTON */}
         <button
           onClick={() =>
-            (window.location.href = `${API_BASE_URL}/api/bookings/${state.bookingId}/pdf`)
+            (window.location.href = `${API_BASE_URL}/api/bookings/download/${state.bookingId}`)
           }
           className="mt-5 w-full bg-green-600 py-2 rounded-lg font-medium hover:opacity-90 transition"
         >
