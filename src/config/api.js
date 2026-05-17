@@ -10,16 +10,16 @@ export const SUPPORT_PHONES = ["9004940265", "9373695607"];
 export const EVENT_DETAILS = {
   name: "The Notebook Concert",
   tagline: "7 Stages of Love",
-  dates: "May 24, 2026",
-  eventDateTime: "2026-05-24T18:00:00",
-  time: "6:00 PM",
+  dates: "June 06, 2026",
+  eventDateTime: "2026-06-06T18:30:00",
+  time: "6:30 PM",
   venue: "Saffron Hotel",
-  priceRegular: 400,
+  priceRegular: 700,
   pricing: {
     earlyBird: {
       enabled: true,
 
-      validTill: "2026-05-14T23:59:59",
+      validTill: "2026-05-24T23:59:59",
 
       price: 600,
     },
