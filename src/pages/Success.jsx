@@ -123,7 +123,7 @@ export default function Success() {
     `Tickets: ${state.qty}\n` +
     `Booking ID: ${state.bookingId}\n\n` +
     `*Download your tickets:*\n` +
-    `${API_BASE_URL}/api/bookings/download/${state.bookingId}`;
+    `${state.pdfUrl}`;
 
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   const whatsappUrl = isMobile
