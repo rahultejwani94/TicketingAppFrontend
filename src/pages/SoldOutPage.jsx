@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Calendar, MapPin, Clock, TicketX, Home, Bell } from "lucide-react";
-import { CONCERT_THEME, EVENT_DETAILS, SOCIAL_LINKS } from "../config/api";
+import { CONCERT_THEME, EVENT_DETAILS, SOCIAL_LINKS } from "../config/event";
 
 export default function SoldOutPage() {
   return (

@@ -4,7 +4,7 @@
 //  Import getEventMode() anywhere — no arguments needed.
 // ============================================================
 
-import { EVENT_STATE } from "../config/api";
+import { EVENT_STATE } from "../config/event";
 
 export const EVENT_MODE = {
   LIVE: "LIVE",       // booking open, countdown visible, "Book Now" shown

@@ -2,14 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="The Notebook Concert" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Primary SEO -->
-    <title>The Notebook Concert – 7 Stages of Love | June 6, Jalgaon</title>
+    <title>
+      <%= EVENT_NAME %> – <%= CONCERT_THEME_NAME %> | <%= EVENT_DATES %>, <%=
+      EVENT_CITY %>
+    </title>
     <meta
       name="description"
-      content="An immersive live music concert experience in Jalgaon. The Notebook Concert takes you through 7 Stages of Love — June 6, 2026 at Saffron Hotel. Book tickets now."
+      content="<%= CONCERT_DESCRIPTION %> <%= EVENT_DATES %> at <%= EVENT_VENUE %>. Book tickets now."
     />
     <meta
       name="keywords"
@@ -20,26 +28,44 @@
     <link rel="canonical" href="https://thenotebookconcert.in/" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="The Notebook Concert – 7 Stages of Love" />
-    <meta property="og:description" content="Live music concert | June 6, 2026 | Saffron Hotel, Jalgaon" />
-    <meta property="og:image" content="https://thenotebookconcert.in/og-image.png" />
+    <meta
+      property="og:title"
+      content="<%= EVENT_NAME %> – <%= CONCERT_THEME_NAME %>"
+    />
+    <meta
+      property="og:description"
+      content="Live music concert | <%= EVENT_DATES %> | <%= EVENT_VENUE %>"
+    />
+    <meta
+      property="og:image"
+      content="https://thenotebookconcert.in/og-image.png"
+    />
     <meta property="og:url" content="https://thenotebookconcert.in/" />
     <meta property="og:type" content="website" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="The Notebook Concert – 7 Stages of Love" />
-    <meta name="twitter:description" content="Live music concert | June 6, 2026 | Saffron Hotel, Jalgaon" />
-    <meta name="twitter:image" content="https://thenotebookconcert.in/og-image.png" />
+    <meta
+      name="twitter:title"
+      content="<%= EVENT_NAME %> – <%= CONCERT_THEME_NAME %>"
+    />
+    <meta
+      name="twitter:description"
+      content="Live music concert | <%= EVENT_DATES %> | <%= EVENT_VENUE %>"
+    />
+    <meta
+      name="twitter:image"
+      content="https://thenotebookconcert.in/og-image.png"
+    />
 
     <!-- Event Schema (rich results in Google) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "MusicEvent",
-        "name": "The Notebook Concert – 7 Stages of Love",
-        "startDate": "2026-06-06T18:30:00",
-        "endDate": "2026-06-06T22:00:00",
+        "name": "<%= EVENT_NAME %> – <%= CONCERT_THEME_NAME %>",
+        "startDate": "<%= EVENT_DATETIME_START %>",
+        "endDate": "<%= EVENT_DATETIME_END %>",
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         "location": {
@@ -53,11 +79,11 @@
           }
         },
         "image": "https://thenotebookconcert.in/og-image.png",
-        "description": "An immersive musical journey through 7 stages of love — attraction, attachment, love, trust, worship, madness, and death.",
+        "description": "<%= CONCERT_DESCRIPTION %>",
         "offers": {
           "@type": "Offer",
           "url": "https://thenotebookconcert.in/booking",
-          "price": "600",
+          "price": "<%= EVENT_PRICE %>",
           "priceCurrency": "INR",
           "availability": "https://schema.org/InStock",
           "validFrom": "2026-01-01"

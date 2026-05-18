@@ -15,7 +15,8 @@ import {
   AlertCircle,
   Loader2,
 } from "lucide-react";
-import API_BASE_URL, { EVENT_DETAILS, SUPPORT_PHONES } from "../config/api";
+import API_BASE_URL from "../config/api";
+import { EVENT_DETAILS, SUPPORT_PHONES } from "../config/event";
 import ConcertLayout from "./ConcertLayout";
 import { getTicketPrice } from "../utils/pricing";
 

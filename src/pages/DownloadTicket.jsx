@@ -12,7 +12,8 @@ import {
   Trash2,
   AlertCircle,
 } from "lucide-react";
-import API_BASE_URL, { EVENT_DETAILS, SUPPORT_PHONES } from "../config/api";
+import API_BASE_URL from "../config/api";
+import { EVENT_DETAILS, SUPPORT_PHONES } from "../config/event";
 import ConcertLayout from "./ConcertLayout";
 import { Phone } from "lucide-react";
 

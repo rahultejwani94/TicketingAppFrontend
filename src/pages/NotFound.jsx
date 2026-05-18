@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Home, Ticket } from "lucide-react";
 import ConcertLayout from "./ConcertLayout";
-import { CONCERT_THEME } from "../config/api";
+import { CONCERT_THEME } from "../config/event";
 
 export default function NotFound() {
   const navigate = useNavigate();

@@ -132,7 +132,7 @@ VITE_API_BASE_URL=http://your-api-url:port
   - `name`: event title shown across the app
   - `tagline`: subtitle or promotion text
   - `dates`: display-friendly event dates
-  - `eventDateTime`: ISO date-time for the event
+  - `eventDateTimeStart`: ISO date-time for the event
   - `time`: shown event start time
   - `venue`: event location
   - `priceRegular`: fallback regular price

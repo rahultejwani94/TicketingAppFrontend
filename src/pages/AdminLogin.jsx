@@ -4,7 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Loader2, Shield, AlertCircle } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
-import API_BASE_URL, { EVENT_DETAILS } from "../config/api";
+import API_BASE_URL from "../config/api";
+import { EVENT_DETAILS } from "../config/event";
 import ConcertLayout from "./ConcertLayout";
 
 export default function AdminLogin() {

@@ -16,7 +16,8 @@ import {
   Music,
   ChevronRight,
 } from "lucide-react";
-import API_BASE_URL, { EVENT_DETAILS, CONCERT_THEME } from "../config/api";
+import API_BASE_URL from "../config/api";
+import { EVENT_DETAILS, CONCERT_THEME } from "../config/event";
 import ConcertLayout from "./ConcertLayout";
 import toast from "react-hot-toast";
 
