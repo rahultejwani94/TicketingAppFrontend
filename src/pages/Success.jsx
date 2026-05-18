@@ -30,7 +30,7 @@ export default function Success() {
   // The blob URL + programmatic click is the only reliable cross-platform approach.
   const triggerDownload = useCallback(async (bookingId) => {
     const response = await fetch(
-      `${API_BASE_URL}/api/bookings/download/${bookingId}`
+      `${API_BASE_URL}/api/bookings/download/${bookingId}`,
     );
     if (!response.ok) throw new Error("Download failed");
     const blob = await response.blob();
@@ -82,7 +82,12 @@ export default function Success() {
     try {
       const prev = JSON.parse(localStorage.getItem("recentBookings") || "[]");
       const updated = [
-        { id: state.bookingId, name: state.name, qty: state.qty, date: new Date().toISOString() },
+        {
+          id: state.bookingId,
+          name: state.name,
+          qty: state.qty,
+          date: new Date().toISOString(),
+        },
         ...prev.filter((b) => b.id !== state.bookingId),
       ].slice(0, 5);
       localStorage.setItem("recentBookings", JSON.stringify(updated));
@@ -95,7 +100,12 @@ export default function Success() {
       <ConcertLayout>
         <div className="min-h-screen flex items-center justify-center px-4">
           <div className="text-center">
-            <img src="/logo.png" alt="" className="w-16 h-16 mx-auto mb-4 opacity-50" aria-hidden="true" />
+            <img
+              src="/logo.png"
+              alt=""
+              className="w-16 h-16 mx-auto mb-4 opacity-50"
+              aria-hidden="true"
+            />
             <p className="text-white/50 mb-4">No booking data found</p>
             <div className="flex flex-col gap-3">
               <button
@@ -104,7 +114,10 @@ export default function Success() {
               >
                 Book Tickets
               </button>
-              <a href="/" className="text-sm text-purple-300 hover:text-white transition">
+              <a
+                href="/"
+                className="text-sm text-purple-300 hover:text-white transition"
+              >
                 Explore the event
               </a>
             </div>
@@ -152,7 +165,10 @@ export default function Success() {
 
   const container = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.07, delayChildren: 0.15 } },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.07, delayChildren: 0.15 },
+    },
   };
   const item = { hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } };
 
@@ -165,10 +181,8 @@ export default function Success() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="max-w-md w-full space-y-4"
         >
-
           {/* ── Main confirmation card ── */}
           <div className="bg-white/[0.07] border border-white/20 p-8 rounded-2xl backdrop-blur-lg shadow-[0_8px_40px_rgba(168,85,247,0.15)]">
-
             {/* Header */}
             <div className="text-center mb-7">
               <motion.div
@@ -181,8 +195,12 @@ export default function Success() {
                   <CheckCircle className="w-8 h-8 text-white" />
                 </div>
               </motion.div>
-              <h1 className="text-2xl font-bold text-green-400 mb-1">Booking Confirmed!</h1>
-              <p className="text-white/60 text-sm">Your tickets have been generated</p>
+              <h1 className="text-2xl font-bold text-green-400 mb-1">
+                Booking Confirmed!
+              </h1>
+              <p className="text-white/60 text-sm">
+                Your tickets have been generated
+              </p>
             </div>
 
             {/* Booking details */}
@@ -193,21 +211,30 @@ export default function Success() {
               animate="visible"
             >
               {[
-                { label: "Name",    value: state.name },
-                { label: "Email",   value: state.email,  truncate: true },
-                { label: "Phone",   value: state.phone },
-                { label: "Tickets", value: state.qty,    highlight: true },
+                { label: "Name", value: state.name },
+                { label: "Email", value: state.email, truncate: true },
+                { label: "Phone", value: state.phone },
+                { label: "Tickets", value: state.qty, highlight: true },
               ].map(({ label, value, truncate, highlight }) => (
-                <motion.div key={label} className="flex justify-between items-center" variants={item}>
+                <motion.div
+                  key={label}
+                  className="flex justify-between items-center gap-3"
+                  variants={item}
+                >
                   <span className="text-white/50">{label}</span>
-                  <span className={`font-medium ${highlight ? "text-purple-300 font-bold" : "text-white"} ${truncate ? "truncate max-w-[180px]" : ""}`}>
+                  <span
+                    className={`font-medium text-right break-all ${highlight ? "text-purple-300 font-bold" : "text-white"} ${truncate ? "truncate max-w-[180px]" : ""}`}
+                  >
                     {value}
                   </span>
                 </motion.div>
               ))}
 
               {/* Booking ID */}
-              <motion.div className="border-t border-white/10 pt-3" variants={item}>
+              <motion.div
+                className="border-t border-white/10 pt-3"
+                variants={item}
+              >
                 <div className="flex items-center justify-between gap-3">
                   <span className="text-white/50 shrink-0">Booking ID</span>
                   <div className="flex items-center gap-2 min-w-0">
@@ -226,16 +253,26 @@ export default function Success() {
               </motion.div>
 
               {/* Total */}
-              <motion.div className="flex justify-between items-center border-t border-white/10 pt-3" variants={item}>
+              <motion.div
+                className="flex justify-between items-center border-t border-white/10 pt-3"
+                variants={item}
+              >
                 <span className="text-white/50">Total Paid</span>
-                <span className="font-bold text-white text-base">₹{state.total}</span>
+                <span className="font-bold text-white text-base">
+                  ₹{state.total}
+                </span>
               </motion.div>
 
               {/* UTR */}
               {!state.isAdmin && state.utr && (
-                <motion.div className="flex justify-between items-center" variants={item}>
+                <motion.div
+                  className="flex justify-between items-center"
+                  variants={item}
+                >
                   <span className="text-white/50">UTR</span>
-                  <span className="font-mono text-white/80 text-xs">{state.utr}</span>
+                  <span className="font-mono text-white/80 text-xs">
+                    {state.utr}
+                  </span>
                 </motion.div>
               )}
             </motion.div>
@@ -248,11 +285,29 @@ export default function Success() {
               transition={{ delay: 0.5 }}
             >
               <Ticket className="w-4 h-4 text-yellow-400 shrink-0 mt-0.5" />
-              <p className="text-xs text-yellow-200/90 leading-relaxed">
-                {isDownloading
-                  ? "Downloading your ticket…"
-                  : "Your ticket download has started. If it didn't, tap the button below."}
-              </p>
+              <div className="space-y-1.5">
+                <p className="text-xs text-yellow-200/90 leading-relaxed">
+                  {isDownloading
+                    ? "Downloading your ticket…"
+                    : "Your ticket download has started. If it didn't, tap the button below."}
+                </p>
+
+                {/* Email status */}
+                {state.emailSent ? (
+                  <p className="text-xs text-white/60">
+                    📧 Ticket also sent to{" "}
+                    <span className="text-white/80 font-medium">
+                      {state.email}
+                    </span>
+                    — check spam if not received.
+                  </p>
+                ) : (
+                  <p className="text-xs text-orange-300/80">
+                    📧 Email could not be sent — please download your ticket
+                    below and keep it safe.
+                  </p>
+                )}
+              </div>
             </motion.div>
 
             {/* Action buttons */}
@@ -268,17 +323,23 @@ export default function Success() {
                 disabled={isDownloading}
                 className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-green-500 py-3.5 rounded-xl font-bold tracking-wider uppercase text-sm hover:shadow-[0_8px_30px_rgba(34,197,94,0.3)] hover:scale-[1.02] transition-all disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
               >
-                {isDownloading
-                  ? <><Loader2 className="w-4 h-4 animate-spin" /> Downloading…</>
-                  : <><Download className="w-4 h-4" /> Download Ticket PDF</>
-                }
+                {isDownloading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" /> Downloading…
+                  </>
+                ) : (
+                  <>
+                    <Download className="w-4 h-4" /> Download Ticket PDF
+                  </>
+                )}
               </button>
 
               {/* Secondary */}
               <button
-                onClick={() => isMobile
-                  ? (window.location.href = whatsappUrl)
-                  : window.open(whatsappUrl, "_blank")
+                onClick={() =>
+                  isMobile
+                    ? (window.location.href = whatsappUrl)
+                    : window.open(whatsappUrl, "_blank")
                 }
                 className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white/8 border border-white/15 text-white/80 hover:text-white hover:border-white/30 hover:bg-white/12 transition text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
               >
@@ -302,18 +363,24 @@ export default function Success() {
               className="mt-6 flex items-center justify-between gap-3 p-3.5 rounded-xl border border-white/10 hover:border-purple-400/25 hover:bg-white/5 transition group"
             >
               <div className="flex items-center gap-3 min-w-0">
-                <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${CONCERT_THEME.colors.primary} ${CONCERT_THEME.colors.secondary} flex items-center justify-center shrink-0`}>
+                <div
+                  className={`w-8 h-8 rounded-lg bg-gradient-to-br ${CONCERT_THEME.colors.primary} ${CONCERT_THEME.colors.secondary} flex items-center justify-center shrink-0`}
+                >
                   <Music className="w-3.5 h-3.5 text-white" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-white/80 text-xs font-semibold truncate">{EVENT_DETAILS.name}</p>
+                  <p className="text-white/80 text-xs font-semibold truncate">
+                    {EVENT_DETAILS.name}
+                  </p>
                   <div className="flex items-center gap-2 text-white/40 text-xs mt-0.5 flex-wrap">
                     <span className="flex items-center gap-1">
-                      <Calendar className="w-3 h-3 text-purple-400" />{EVENT_DETAILS.dates}
+                      <Calendar className="w-3 h-3 text-purple-400" />
+                      {EVENT_DETAILS.dates}
                     </span>
                     <span>·</span>
                     <span className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-pink-400" />{EVENT_DETAILS.venue}
+                      <MapPin className="w-3 h-3 text-pink-400" />
+                      {EVENT_DETAILS.venue}
                     </span>
                   </div>
                 </div>
@@ -322,11 +389,11 @@ export default function Success() {
             </a>
 
             <p className="mt-4 text-center text-xs text-white/30 leading-relaxed">
-              Keep your <span className="text-purple-300/70 font-medium">Booking ID</span> safe —
-              you'll need it to download your ticket later.
+              Keep your{" "}
+              <span className="text-purple-300/70 font-medium">Booking ID</span>{" "}
+              safe — you'll need it to download your ticket later.
             </p>
           </div>
-
         </motion.div>
       </div>
     </ConcertLayout>

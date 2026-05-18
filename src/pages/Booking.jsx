@@ -288,7 +288,7 @@ export default function Booking({ isAdmin = false }) {
         ticketCount: form.qty,
         totalAmount: total,
         paymentType: isAdminFlow ? "FREE" : "PAID",
-        utr: isAdminFlow ? "FREE_ADMIN" : form.utr,
+        utr: isAdminFlow ? "FREE_ADMIN" : form.utr.trim(),
       };
 
       if (!reservationId) {
@@ -345,6 +345,7 @@ export default function Booking({ isAdmin = false }) {
             bookingId: data.bookingId,
             tickets: data.tickets,
             pdfUrl: data.pdfUrl,
+            emailSent: data.emailSent,
             isAdmin: isAdminFlow,
           },
         });
@@ -898,7 +899,7 @@ export default function Booking({ isAdmin = false }) {
                         placeholder="Enter UTR / Transaction ID"
                         value={form.utr}
                         onChange={(e) =>
-                          setForm({ ...form, utr: e.target.value })
+                          setForm({ ...form, utr: e.target.value.trimStart() })
                         }
                         onBlur={() => setTouched({ ...touched, utr: true })}
                         aria-invalid={!!getFieldError("utr")}
