@@ -655,10 +655,20 @@ export default function TheNotebookConcert() {
                   <Calendar className="w-4 h-4 text-purple-400" />
                   <span className="text-white/80">{EVENT_DETAILS.dates}</span>
                 </div>
-                <div className="flex items-center gap-2 px-5 py-3 bg-white/[0.04] border border-white/10 rounded-full backdrop-blur-xl">
+                <a
+                  href={EVENT_DETAILS.venueMapLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-2 px-5 py-3 bg-white/[0.04] border border-white/10 rounded-full backdrop-blur-xl hover:border-pink-400/40 hover:bg-white/[0.06] transition-all"
+                >
                   <MapPin className="w-4 h-4 text-pink-400" />
-                  <span className="text-white/80">{EVENT_DETAILS.venue}</span>
-                </div>
+
+                  <span className="text-white/80 group-hover:text-white transition-colors">
+                    {EVENT_DETAILS.venue}
+                  </span>
+
+                  <ExternalLink className="w-3 h-3 text-white/40 group-hover:text-pink-300 transition-colors" />
+                </a>
                 <div className="flex items-center gap-2 px-5 py-3 bg-white/[0.04] border border-white/10 rounded-full backdrop-blur-xl">
                   <Clock className="w-4 h-4 text-blue-400" />
                   <span className="text-white/80">{EVENT_DETAILS.time}</span>
@@ -803,10 +813,18 @@ export default function TheNotebookConcert() {
                     <span>{EVENT_DETAILS.dates}</span>
                   </div>
                   <span className="hidden sm:block text-white/20">|</span>
-                  <div className="flex items-center gap-2">
+                  <a
+                    href={EVENT_DETAILS.venueMapLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-2 hover:text-pink-300 transition-colors"
+                  >
                     <MapPin className="w-4 h-4 text-pink-400" />
+
                     <span>{EVENT_DETAILS.venue}</span>
-                  </div>
+
+                    <ExternalLink className="w-3 h-3 opacity-50 group-hover:opacity-100" />
+                  </a>
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-blue-400" />
                     <span>{EVENT_DETAILS.time}</span>

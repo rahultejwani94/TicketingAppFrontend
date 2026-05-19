@@ -10,6 +10,7 @@ export const EVENT_DETAILS = {
   eventDateTimeEnd: "2026-06-06T22:00:00",
   time: "6:30 PM",
   venue: "Saffron Hotel",
+  venueMapLink: "https://maps.app.goo.gl/ag3zgEzNmZSCxYBz6",
   city: "Jalgaon",
   priceRegular: 700,
   pricing: {
