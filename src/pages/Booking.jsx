@@ -111,7 +111,12 @@ export default function Booking({ isAdmin = false }) {
 
   const upiId = import.meta.env.VITE_UPI_ID;
   const merchant = import.meta.env.VITE_MERCHANT_NAME;
-  const upiLink = `upi://pay?pa=${upiId}&pn=${merchant}&am=${total}&tn=Ticket`;
+  const upiLink =
+  `upi://pay?pa=${encodeURIComponent(upiId)}` +
+  `&pn=${encodeURIComponent(merchant)}` +
+  `&am=${total}` +
+  `&cu=INR` +
+  `&tn=${encodeURIComponent(`${EVENT_DETAILS.name} Ticket Booking`)}`;
 
   const isMobile =
     typeof window !== "undefined"
@@ -174,7 +179,7 @@ export default function Booking({ isAdmin = false }) {
     const utr = form.utr.trim();
 
     if (!utr) {
-      toast.error("Enter UTR / Transaction ID");
+      toast.error("Enter UTR");
       return false;
     }
     if (utr.includes(" ")) {
@@ -819,47 +824,51 @@ export default function Booking({ isAdmin = false }) {
                     Payment
                   </h2>
 
-                  {isMobile ? (
-                    <a
-                      href={upiLink}
-                      className="block text-center bg-gradient-to-r from-purple-500 to-pink-600 py-3.5 rounded-xl font-bold tracking-wider uppercase text-sm hover:shadow-[0_8px_30px_rgba(168,85,247,0.35)] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
-                    >
-                      Pay Now via UPI App
-                    </a>
-                  ) : (
-                    <div className="p-5 border border-dashed border-white/20 rounded-2xl text-center bg-white/5">
-                      <div className="bg-white p-4 rounded-xl inline-block shadow-[0_0_25px_rgba(255,255,255,0.15)]">
-                        <QRCodeCanvas
-                          value={upiLink}
-                          size={170}
-                          bgColor="#ffffff"
-                          fgColor="#000000"
-                        />
+                  <div className="p-4 sm:p-5 border border-dashed border-white/20 rounded-2xl text-center bg-white/5">
+                    <div className="bg-white p-3 sm:p-4 rounded-xl inline-block shadow-[0_0_25px_rgba(255,255,255,0.15)]">
+                      <QRCodeCanvas
+                        value={upiLink}
+                        size={isMobile ? 150 : 190}
+                        bgColor="#ffffff"
+                        fgColor="#000000"
+                        includeMargin={true}
+                      />
+                    </div>
+
+                    <p className="text-xs sm:text-sm text-white/60 mt-3 leading-relaxed">
+                      Scan this QR using any UPI app
+                      <br />
+                      (GPay, PhonePe, Paytm, BHIM)
+                    </p>
+
+                    {/* <div className="mt-4 bg-white/5 border border-white/10 rounded-xl px-4 py-3">
+                      <p className="text-xs text-white/50 mb-2">
+                        Unable to scan? Pay directly to this UPI ID:
+                      </p>
+
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="truncate text-sm font-medium text-purple-300 font-mono">
+                          {upiId}
+                        </div>
+
+                        <button
+                          onClick={() => copyToClipboard(upiId)}
+                          className="flex-shrink-0 flex items-center justify-center w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+                          aria-label="Copy UPI ID"
+                        >
+                          <Copy className="w-4 h-4" />
+                        </button>
                       </div>
-                      <p className="text-xs text-white/60 mt-3">
-                        Scan using any UPI app (GPay, PhonePe, Paytm)
+                    </div> */}
+
+                    <div className="mt-4 text-left bg-yellow-500/10 border border-yellow-400/20 rounded-xl p-3">
+                      <p className="text-xs text-yellow-200 leading-relaxed">
+                        After completing payment, click{" "}
+                        <span className="font-semibold">"I Have Paid"</span> and
+                        enter your UTR.
                       </p>
                     </div>
-                  )}
-
-                  {/* UPI ID COPY */}
-                  <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 mt-3">
-                    <p className="text-xs text-white/50 mb-2">
-                      Unable to scan? Pay directly to this UPI ID:
-                    </p>
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="truncate text-sm font-medium text-purple-300 font-mono">
-                        {upiId}
-                      </div>
-                      <button
-                        onClick={() => copyToClipboard(upiId)}
-                        className="flex items-center justify-center w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
-                        aria-label="Copy UPI ID"
-                      >
-                        <Copy className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
+                  </div>                  
 
                   <button
                     onClick={goToUTR}
@@ -888,7 +897,7 @@ export default function Booking({ isAdmin = false }) {
                   {!isAdminFlow && (
                     <div>
                       <label htmlFor="utr" className="sr-only">
-                        UTR / Transaction ID
+                        UTR
                       </label>
                       <input
                         id="utr"
@@ -897,7 +906,7 @@ export default function Booking({ isAdmin = false }) {
                             ? "border-red-500/50 focus:border-red-500"
                             : "border-white/15 focus:border-green-500/50"
                         }`}
-                        placeholder="Enter UTR / Transaction ID"
+                        placeholder="Enter UTR"
                         value={form.utr}
                         onChange={(e) =>
                           setForm({ ...form, utr: e.target.value.trimStart() })
