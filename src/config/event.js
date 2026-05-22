@@ -17,7 +17,7 @@ export const EVENT_DETAILS = {
     earlyBird: {
       enabled: true,
 
-      validTill: "2026-05-24T23:59:59",
+      validTill: "2026-05-30T23:59:59",
 
       price: 600,
     },
