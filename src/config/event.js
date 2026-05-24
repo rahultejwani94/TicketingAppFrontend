@@ -52,6 +52,25 @@ export const CONCERT_THEME = {
   },
 };
 
+// ── Pass Collection Desks ──────────────────────────────────────
+// Update these with your actual desk locations
+export const COLLECTION_DESKS = [
+  {
+    id: 1,
+    name: "Saffron Fine Dine",
+    location: "Lane 5, Mehrun Lake, Jayant Paradise, Shirsoli Rd",
+    timing: "1:00 PM – 10:00 PM",
+    note: "Primary collection point",
+  },
+  {
+    id: 2,
+    name: "Mehfil Cafe",
+    location: "MJ college road, below Golds Gym",
+    timing: "2:00 PM – 9:30 PM",
+    note: "Alternate collection point",
+  },
+];
+
 // ─── Event State ─────────────────────────────────────────────
 // Flip these booleans to change what the site shows.
 //

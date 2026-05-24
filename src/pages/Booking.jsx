@@ -14,9 +14,15 @@ import {
   ChevronRight,
   AlertCircle,
   Loader2,
+  MapPin,
+  Clock,
 } from "lucide-react";
 import API_BASE_URL from "../config/api";
-import { EVENT_DETAILS, SUPPORT_PHONES } from "../config/event";
+import {
+  EVENT_DETAILS,
+  SUPPORT_PHONES,
+  COLLECTION_DESKS,
+} from "../config/event";
 import ConcertLayout from "./ConcertLayout";
 import { getTicketPrice } from "../utils/pricing";
 
@@ -112,11 +118,11 @@ export default function Booking({ isAdmin = false }) {
   const upiId = import.meta.env.VITE_UPI_ID;
   const merchant = import.meta.env.VITE_MERCHANT_NAME;
   const upiLink =
-  `upi://pay?pa=${encodeURIComponent(upiId)}` +
-  `&pn=${encodeURIComponent(merchant)}` +
-  `&am=${total}` +
-  `&cu=INR` +
-  `&tn=${encodeURIComponent(`${EVENT_DETAILS.name} Ticket Booking`)}`;
+    `upi://pay?pa=${encodeURIComponent(upiId)}` +
+    `&pn=${encodeURIComponent(merchant)}` +
+    `&am=${total}` +
+    `&cu=INR` +
+    `&tn=${encodeURIComponent(`${EVENT_DETAILS.name} Ticket Booking`)}`;
 
   const isMobile =
     typeof window !== "undefined"
@@ -339,7 +345,7 @@ export default function Booking({ isAdmin = false }) {
 
       const data = await res.json();
 
-      toast.success("Tickets generated!");
+      toast.success("Booking confirmed!");
 
       setTimeout(() => {
         toast.dismiss();
@@ -349,9 +355,6 @@ export default function Booking({ isAdmin = false }) {
             ...form,
             total,
             bookingId: data.bookingId,
-            tickets: data.tickets,
-            pdfUrl: data.pdfUrl,
-            emailSent: data.emailSent,
             isAdmin: isAdminFlow,
           },
         });
@@ -467,25 +470,11 @@ export default function Booking({ isAdmin = false }) {
                 alt="The Notebook Concert"
                 className="w-32 h-20 mx-auto object-contain group-hover:scale-110 transition-transform drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]"
               />
-              {/* <p className="absolute left-1/2 -translate-x-1/2 text-xs text-purple-300/70 mt-1 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                Back to event page
-              </p> */}
             </a>
             <p className="text-sm tracking-[0.3em] text-purple-300 uppercase">
               {EVENT_DETAILS.name}
             </p>
-            <h1 className="text-3xl md:text-4xl font-bold">Book Your Ticket</h1>
-
-            {/* Mobile download ticket link */}
-            <div className="md:hidden flex justify-center mt-3">
-              <button
-                onClick={() => navigate("/download-ticket")}
-                className="text-sm text-purple-300 hover:text-white transition underline underline-offset-4 focus:outline-none focus-visible:text-white"
-              >
-                <Ticket className="w-4 h-4 inline mr-1" />
-                Already booked? Download Ticket
-              </button>
-            </div>
+            <h1 className="text-3xl md:text-4xl font-bold">Book Your Ticket</h1>           
 
             <div className="space-y-2">
               <p className="text-white/60 text-sm">
@@ -501,22 +490,7 @@ export default function Booking({ isAdmin = false }) {
                 ← View Event Details
               </a>
             </div>
-
-            {/* Desktop floating download button */}
-            <div className="hidden md:block">
-              <button
-                onClick={() => navigate("/download-ticket")}
-                className="fixed bottom-5 right-5 z-40 flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 shadow-[0_8px_30px_rgba(168,85,247,0.35)] hover:scale-105 hover:shadow-[0_10px_40px_rgba(236,72,153,0.45)] transition-all duration-300 backdrop-blur-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
-              >
-                <Ticket className="w-5 h-5" />
-                <div className="text-left leading-tight">
-                  <div className="text-white font-semibold text-sm">
-                    Already Booked?
-                  </div>
-                  <div className="text-white/80 text-xs">Download Ticket</div>
-                </div>
-              </button>
-            </div>
+            
           </header>
 
           {/* STEP INDICATOR */}
@@ -539,7 +513,7 @@ export default function Booking({ isAdmin = false }) {
               ))}
             </div>
           </nav>
-          {/* ⏱️ ADD THIS RIGHT HERE */}
+
           {timeLeft !== null && reservationId && (
             <div className="text-center text-sm text-yellow-300 mt-3">
               Reservation expires in {Math.floor(timeLeft / 60)}:
@@ -841,26 +815,6 @@ export default function Booking({ isAdmin = false }) {
                       (GPay, PhonePe, Paytm, BHIM)
                     </p>
 
-                    {/* <div className="mt-4 bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                      <p className="text-xs text-white/50 mb-2">
-                        Unable to scan? Pay directly to this UPI ID:
-                      </p>
-
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="truncate text-sm font-medium text-purple-300 font-mono">
-                          {upiId}
-                        </div>
-
-                        <button
-                          onClick={() => copyToClipboard(upiId)}
-                          className="flex-shrink-0 flex items-center justify-center w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
-                          aria-label="Copy UPI ID"
-                        >
-                          <Copy className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div> */}
-
                     <div className="mt-4 text-left bg-yellow-500/10 border border-yellow-400/20 rounded-xl p-3">
                       <p className="text-xs text-yellow-200 leading-relaxed">
                         After completing payment, click{" "}
@@ -868,7 +822,7 @@ export default function Booking({ isAdmin = false }) {
                         enter your UTR.
                       </p>
                     </div>
-                  </div>                  
+                  </div>
 
                   <button
                     onClick={goToUTR}
@@ -948,7 +902,7 @@ export default function Booking({ isAdmin = false }) {
                 </div>
               )}
             </div>
-          </div>
+          </div>        
 
           {/* DISCOVER MORE */}
           <div className="flex justify-center mb-4">

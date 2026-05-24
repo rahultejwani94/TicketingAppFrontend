@@ -2,80 +2,28 @@
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect } from "react";
 import {
-  Download,
   Ticket,
   Share2,
   ArrowLeft,
   CheckCircle,
-  Loader2,
   Copy,
   Calendar,
   MapPin,
   Music,
   ChevronRight,
+  Navigation,
+  Info,
 } from "lucide-react";
-import API_BASE_URL from "../config/api";
-import { EVENT_DETAILS, CONCERT_THEME } from "../config/event";
+import { EVENT_DETAILS, CONCERT_THEME, COLLECTION_DESKS } from "../config/event";
 import ConcertLayout from "./ConcertLayout";
 import toast from "react-hot-toast";
+
 
 export default function Success() {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const [isDownloading, setIsDownloading] = useState(false);
-
-  // Core fetch→blob→anchor download — works on iOS Safari, Android, desktop.
-  // iOS Safari ignores window.location.href for PDFs (opens in browser instead).
-  // The blob URL + programmatic click is the only reliable cross-platform approach.
-  const triggerDownload = useCallback(async (bookingId) => {
-    const response = await fetch(
-      `${API_BASE_URL}/api/bookings/download/${bookingId}`,
-    );
-    if (!response.ok) throw new Error("Download failed");
-    const blob = await response.blob();
-    // Force octet-stream so iOS treats it as a file download, not inline navigation
-    const pdfBlob = new Blob([blob], { type: "application/octet-stream" });
-    const url = window.URL.createObjectURL(pdfBlob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `The_Notebook_Concert_Ticket_${bookingId}.pdf`;
-    a.style.display = "none";
-    document.body.appendChild(a);
-    a.click();
-    // Small delay before cleanup so iOS has time to register the download
-    setTimeout(() => {
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    }, 300);
-  }, []);
-
-  const downloadTicket = useCallback(async () => {
-    if (!state?.bookingId || isDownloading) return;
-    try {
-      setIsDownloading(true);
-      await triggerDownload(state.bookingId);
-    } catch (error) {
-      console.error("Download error:", error);
-      toast.error("Download failed. Please try again.");
-    } finally {
-      setIsDownloading(false);
-    }
-  }, [state?.bookingId, isDownloading, triggerDownload]);
-
-  // Auto-download on first load only — uses blob approach, NOT window.location.href
-  // which opens the PDF inline on iOS Safari instead of downloading it.
-  useEffect(() => {
-    if (!state?.bookingId) return;
-    const key = `ticketDownloaded-${state.bookingId}`;
-    if (sessionStorage.getItem(key)) return;
-    sessionStorage.setItem(key, "true");
-    triggerDownload(state.bookingId).catch((err) => {
-      console.error("Auto-download failed:", err);
-      // Silent fail — user can still tap the Download button manually
-    });
-  }, [state?.bookingId, triggerDownload]);
 
   // Persist booking to localStorage
   useEffect(() => {
@@ -128,7 +76,7 @@ export default function Success() {
     );
   }
 
-  // ── WhatsApp share ────────────────────────────────────────────
+  // ── WhatsApp share ─────────────────────────────────────────────
   const message =
     `*${EVENT_DETAILS.name}* 🎉\n` +
     `${EVENT_DETAILS.tagline}\n\n` +
@@ -136,8 +84,7 @@ export default function Success() {
     `Name: ${state.name}\n` +
     `Tickets: ${state.qty}\n` +
     `Booking ID: ${state.bookingId}\n\n` +
-    `*Download your tickets:*\n` +
-    `${state.pdfUrl}`;
+    `Collect physical passes from the locations mentioned in the email.`;
 
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   const whatsappUrl = isMobile
@@ -199,9 +146,7 @@ export default function Success() {
               <h1 className="text-2xl font-bold text-green-400 mb-1">
                 Booking Confirmed!
               </h1>
-              <p className="text-white/60 text-sm">
-                Your tickets have been generated
-              </p>
+              <p className="text-white/60 text-sm">Your seats are reserved</p>
             </div>
 
             {/* Booking details */}
@@ -254,60 +199,92 @@ export default function Success() {
               </motion.div>
 
               {/* Total */}
-              <motion.div
-                className="flex justify-between items-center border-t border-white/10 pt-3"
-                variants={item}
-              >
-                <span className="text-white/50">Total Paid</span>
-                <span className="font-bold text-white text-base">
-                  ₹{state.total}
-                </span>
-              </motion.div>
-
-              {/* UTR */}
-              {!state.isAdmin && state.utr && (
+              {!state.isAdmin && (
                 <motion.div
-                  className="flex justify-between items-center"
+                  className="flex justify-between items-center border-t border-white/10 pt-3"
                   variants={item}
                 >
-                  <span className="text-white/50">UTR</span>
-                  <span className="font-mono text-white/80 text-xs">
-                    {state.utr}
+                  <span className="text-white/50">Total Paid</span>
+                  <span className="font-bold text-white text-base">
+                    ₹{state.total}
                   </span>
                 </motion.div>
               )}
             </motion.div>
 
-            {/* Download nudge */}
+            {/* ── Physical Pass Collection Notice ── */}
             <motion.div
-              className="mb-6 flex items-start gap-3 p-3.5 bg-yellow-500/10 border border-yellow-400/25 rounded-xl"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              className="mb-6 rounded-xl overflow-hidden border border-purple-400/30"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45 }}
             >
-              <Ticket className="w-4 h-4 text-yellow-400 shrink-0 mt-0.5" />
-              <div className="space-y-1.5">
-                <p className="text-xs text-yellow-200/90 leading-relaxed">
-                  {isDownloading
-                    ? "Downloading your ticket…"
-                    : "Your ticket download has started. If it didn't, tap the button below."}
+              {/* Header strip */}
+              <div className="bg-gradient-to-r from-purple-600/40 to-pink-600/30 px-4 py-3 flex items-center gap-2.5">
+                <Ticket className="w-4 h-4 text-purple-200 shrink-0" />
+                <p className="text-sm font-bold text-white tracking-wide">
+                  Collect Your Physical Pass
+                </p>
+              </div>
+
+              {/* Body */}
+              <div className="bg-black/40 px-4 py-4 space-y-4">
+                <p className="text-xs text-white/60 leading-relaxed">
+                  No digital ticket needed. Show your{" "}
+                  <span className="text-purple-300 font-semibold">
+                    Booking ID
+                  </span>{" "}
+                  and a valid photo ID at any collection desk below to receive
+                  your physical pass on the day of the event.
                 </p>
 
-                {/* Email status */}
-                {state.emailSent ? (
-                  <p className="text-xs text-white/60">
-                    📧 Ticket also sent to{" "}
-                    <span className="text-white/80 font-medium">
-                      {state.email}
-                    </span>
-                    — check spam if not received.
+                {/* Desk list */}
+                <div className="space-y-3">
+                  {COLLECTION_DESKS.map((desk, i) => (
+                    <div
+                      key={desk.id}
+                      className="flex gap-3 p-3 bg-white/5 border border-white/10 rounded-lg"
+                    >
+                      <div className="w-6 h-6 rounded-full bg-purple-600/40 border border-purple-400/30 flex items-center justify-center shrink-0 mt-0.5">
+                        <span className="text-xs font-bold text-purple-300">
+                          {i + 1}
+                        </span>
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-white leading-snug">
+                          {desk.name}
+                        </p>
+                        <p className="text-xs text-white/50 mt-0.5 flex items-center gap-1">
+                          <Navigation className="w-3 h-3 text-pink-400 shrink-0" />
+                          {desk.location}
+                        </p>
+                        <p className="text-xs text-white/40 mt-0.5 flex items-center gap-1">
+                          <Calendar className="w-3 h-3 text-purple-400 shrink-0" />
+                          {desk.timing}
+                        </p>
+                        {desk.note && (
+                          <span className="inline-block mt-1.5 text-[10px] px-2 py-0.5 bg-purple-600/20 border border-purple-400/20 rounded-full text-purple-300">
+                            {desk.note}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Reminder */}
+                <div className="flex items-start gap-2 p-2.5 bg-yellow-500/10 border border-yellow-400/20 rounded-lg">
+                  <Info className="w-3.5 h-3.5 text-yellow-400 shrink-0 mt-0.5" />
+                  <p className="text-xs text-yellow-200/80 leading-relaxed">
+                    Please carry <strong>Booking ID</strong>{" "}
                   </p>
-                ) : (
-                  <p className="text-xs text-orange-300/80">
-                    📧 Email could not be sent — please download your ticket
-                    below and keep it safe.
-                  </p>
-                )}
+                </div>
+
+                <p className="text-xs text-white/40 text-center">
+                  📧 Booking confirmation sent to{" "}
+                  <span className="text-white/60">{state.email}</span> — check
+                  spam if not received.
+                </p>
               </div>
             </motion.div>
 
@@ -317,25 +294,9 @@ export default function Success() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-            >
-              {/* Primary */}
-              <button
-                onClick={downloadTicket}
-                disabled={isDownloading}
-                className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-green-500 py-3.5 rounded-xl font-bold tracking-wider uppercase text-sm hover:shadow-[0_8px_30px_rgba(34,197,94,0.3)] hover:scale-[1.02] transition-all disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
-              >
-                {isDownloading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" /> Downloading…
-                  </>
-                ) : (
-                  <>
-                    <Download className="w-4 h-4" /> Download Ticket PDF
-                  </>
-                )}
-              </button>
+            >             
 
-              {/* Secondary */}
+              {/* WhatsApp share */}
               <button
                 onClick={() =>
                   isMobile
@@ -348,7 +309,7 @@ export default function Success() {
                 Share on WhatsApp
               </button>
 
-              {/* Tertiary */}
+              {/* Book more */}
               <button
                 onClick={() => navigate("/booking")}
                 className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-white/40 hover:text-white/70 transition text-sm focus:outline-none"
@@ -392,7 +353,7 @@ export default function Success() {
             <p className="mt-4 text-center text-xs text-white/30 leading-relaxed">
               Keep your{" "}
               <span className="text-purple-300/70 font-medium">Booking ID</span>{" "}
-              safe — you'll need it to download your ticket later.
+              safe — you'll need it to collect your pass at the venue.
             </p>
           </div>
         </motion.div>
