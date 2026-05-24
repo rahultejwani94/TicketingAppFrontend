@@ -497,16 +497,6 @@ export default function TheNotebookConcert() {
             Tickets
           </a>
 
-          {/* Download Ticket — hidden after event ends */}
-          {!isEventOver && (
-            <a
-              href="/download-ticket"
-              className="hover:text-purple-300 transition-colors"
-            >
-              Download Ticket
-            </a>
-          )}
-
           {/* Book Now — only when live */}
           {isBookingOpen && (
             <a
@@ -553,16 +543,7 @@ export default function TheNotebookConcert() {
               >
                 {id}
               </a>
-            ))}
-            {!isEventOver && (
-              <a
-                href="/download-ticket"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-2xl font-bold tracking-wider hover:text-purple-300 transition-colors"
-              >
-                Download Ticket
-              </a>
-            )}
+            ))}            
             {isBookingOpen && (
               <a
                 href="/booking"
