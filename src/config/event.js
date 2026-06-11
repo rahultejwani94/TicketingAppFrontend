@@ -15,8 +15,8 @@ export const EVENT_DETAILS = {
   eventDateTimeStart: "2026-08-02T18:30:00",
   eventDateTimeEnd: "2026-08-02T22:00:00",
   time: "6:30 PM",
-  venue: "Rudanta Restro",
-  venueMapLink: "https://maps.app.goo.gl/a9hGJJiAz1aEbChA9",
+  venue: "TBD",
+  venueMapLink: "",
   city: "Jalgaon",
   priceRegular: 700,
   pricing: {
