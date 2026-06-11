@@ -1,23 +1,29 @@
 // Support phone numbers - configurable
 export const SUPPORT_PHONES = ["9004940265", "9373695607"];
 
+export const BOOKING_CONFIG = {
+  enabled: false, // ← flip to false for info-only / free / non-ticketed shows
+};
+
 // Event details - centralized for consistency
 export const EVENT_DETAILS = {
   name: "The Notebook Concert",
-  tagline: "7 Stages of Love",
-  dates: "June 06, 2026",
-  eventDateTimeStart: "2026-06-06T18:30:00",
-  eventDateTimeEnd: "2026-06-06T22:00:00",
+  tagline: "Yaaron Ki Mehfil",
+  exploreSubtitle: "The Journey", // small text above heading
+  exploreHeading: "Chapters Of Friendship", // main heading
+  dates: "August 02, 2026",
+  eventDateTimeStart: "2026-08-02T18:30:00",
+  eventDateTimeEnd: "2026-08-02T22:00:00",
   time: "6:30 PM",
-  venue: "Saffron Hotel",
-  venueMapLink: "https://maps.app.goo.gl/ag3zgEzNmZSCxYBz6",
+  venue: "Rudanta Restro",
+  venueMapLink: "https://maps.app.goo.gl/a9hGJJiAz1aEbChA9",
   city: "Jalgaon",
   priceRegular: 700,
   pricing: {
     earlyBird: {
       enabled: true,
 
-      validTill: "2026-06-06T23:59:59",
+      validTill: "2026-08-02T23:59:59",
 
       price: 600,
     },
@@ -40,10 +46,10 @@ export const SOCIAL_LINKS = {
 };
 
 export const CONCERT_THEME = {
-  title: "7 STAGES",
-  subtitle: "OF LOVE",
+  title: "YAARON",
+  subtitle: "KI MEHFIL",
   description:
-    "An immersive musical journey through attraction, obsession, heartbreak, devotion, and forever.",
+    "An immersive musical journey through friendship, laughter, memories, challenges, reunions, and forever bonds.",
 
   colors: {
     primary: "from-purple-600",
@@ -93,3 +99,82 @@ export const POST_EVENT = {
   ctaHref: SOCIAL_LINKS.instagram,
   badge: "Thank you for being part of the story",
 };
+
+const STAGES_OF_LOVE = [
+  {
+    title: "Attraction",
+    desc: "Where every glance feels electric.",
+    image: "/stages/attraction.jpg",
+  },
+  {
+    title: "Attachment",
+    desc: "When absence starts to hurt.",
+    image: "/stages/attachment.jpg",
+  },
+  {
+    title: "Love",
+    desc: "The warmth of being truly seen.",
+    image: "/stages/love.jpg",
+  },
+  {
+    title: "Trust",
+    desc: "Finding peace in another soul.",
+    image: "/stages/trust.jpg",
+  },
+  {
+    title: "Worship",
+    desc: "When love becomes devotion.",
+    image: "/stages/worship.jpg",
+  },
+  {
+    title: "Madness",
+    desc: "Where emotions consume reason.",
+    image: "/stages/madness_1.jpg",
+  },
+  {
+    title: "Death",
+    desc: "Some love stories never really end.",
+    image: "/stages/death_2.jpg",
+  },
+];
+
+
+const CHAPTER_OF_FRIENDSHIP = [
+  {
+    title: "Meeting",
+    desc: "Where it all began.",
+    image: "/friendship/meeting.jpg",
+  },
+  {
+    title: "Bond",
+    desc: "Strangers become family.",
+    image: "/friendship/bond.jpg",
+  },
+  {
+    title: "Gang",
+    desc: "Together, always unstoppable.",
+    image: "/friendship/gang.jpg",
+  },
+  {
+    title: "Memories",
+    desc: "Moments we'll never forget.",
+    image: "/friendship/memories.jpg",
+  },
+  {
+    title: "Challenges",
+    desc: "Standing strong together.",
+    image: "/friendship/challenges_1.webp",
+  },
+  {
+    title: "Reunion",
+    desc: "Back where we belong.",
+    image: "/friendship/reunion.webp",
+  },
+  {
+    title: "Forever",
+    desc: "Some friendships never fade.",
+    image: "/friendship/forever.jpg",
+  },
+];
+
+export const EXPLORE_ITEMS = CHAPTER_OF_FRIENDSHIP;

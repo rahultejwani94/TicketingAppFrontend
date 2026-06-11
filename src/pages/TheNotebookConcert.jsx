@@ -30,6 +30,7 @@ import {
   SOCIAL_LINKS,
   CONCERT_THEME,
   POST_EVENT,
+  EXPLORE_ITEMS
 } from "../config/event";
 import { getTicketPrice } from "../utils/pricing";
 import {
@@ -78,44 +79,6 @@ const YoutubeIcon = ({ className }) => (
   </svg>
 );
 
-// ─── Static Data ──────────────────────────────────────────────
-const STAGES = [
-  {
-    title: "Attraction",
-    desc: "Where every glance feels electric.",
-    image: "/stages/attraction.jpg",
-  },
-  {
-    title: "Attachment",
-    desc: "When absence starts to hurt.",
-    image: "/stages/attachment.jpg",
-  },
-  {
-    title: "Love",
-    desc: "The warmth of being truly seen.",
-    image: "/stages/love.jpg",
-  },
-  {
-    title: "Trust",
-    desc: "Finding peace in another soul.",
-    image: "/stages/trust.jpg",
-  },
-  {
-    title: "Worship",
-    desc: "When love becomes devotion.",
-    image: "/stages/worship.jpg",
-  },
-  {
-    title: "Madness",
-    desc: "Where emotions consume reason.",
-    image: "/stages/madness_1.jpg",
-  },
-  {
-    title: "Death",
-    desc: "Some love stories never really end.",
-    image: "/stages/death_2.jpg",
-  },
-];
 
 const FEATURES = [
   {
@@ -144,7 +107,7 @@ const ARTISTS = [
   {
     name: "Sanam",
     role: "Vocalist",
-    image: "/artists/sanam.png",
+    image: "/artists/Sanam.png",
     bio: "A passionate vocalist bringing emotion, energy, and soulful melodies to every performance.",
     socials: {
       instagram: "https://instagram.com/sanam_musician",
@@ -155,7 +118,7 @@ const ARTISTS = [
   {
     name: "Rahul",
     role: "Pianist",
-    image: "/artists/rahul.png",
+    image: "/artists/Rahul.jpeg",
     bio: "Creating expressive piano melodies that add warmth and depth to the music.",
     socials: {
       instagram: "https://instagram.com/rahultejwani94",
@@ -222,10 +185,10 @@ function HeroCTA() {
           </span>
         </a>
         <a
-          href="#stages"
+          href="#explore"
           className="group flex items-center gap-2 px-7 py-3.5 bg-white/[0.03] border border-white/10 hover:border-white/40 rounded-full text-white/70 hover:text-white transition-all text-sm tracking-widest uppercase font-medium backdrop-blur-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
         >
-          Explore Stages{" "}
+          Explore {" "}
           <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </a>
       </div>
@@ -242,10 +205,10 @@ function HeroCTA() {
           Tickets Sold Out
         </a>
         <a
-          href="#stages"
+          href="#explore"
           className="group flex items-center gap-2 px-7 py-3.5 bg-white/[0.03] border border-white/10 hover:border-white/40 rounded-full text-white/70 hover:text-white transition-all text-sm tracking-widest uppercase font-medium backdrop-blur-xl"
         >
-          Explore Stages{" "}
+          Explore {" "}
           <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </a>
       </div>
@@ -259,16 +222,28 @@ function HeroCTA() {
           Booking Temporarily Paused
         </div>
         <a
-          href="#stages"
+          href="#explore"
           className="group flex items-center gap-2 px-7 py-3.5 bg-white/[0.03] border border-white/10 hover:border-white/40 rounded-full text-white/70 hover:text-white transition-all text-sm tracking-widest uppercase font-medium backdrop-blur-xl"
         >
-          Explore Stages{" "}
+          Explore {" "}
           <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </a>
       </div>
     );
   }
-
+  if (eventMode === EVENT_MODE.INFO_ONLY) {
+    return (
+      <div className="flex justify-center mt-2">
+        <a
+          href="#explore"
+          className="group flex items-center gap-2 px-7 py-3.5 bg-white/[0.03] border border-white/10 hover:border-white/40 rounded-full text-white/70 hover:text-white transition-all text-sm tracking-widest uppercase font-medium backdrop-blur-xl"
+        >
+          Explore the Show{" "}
+          <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </a>
+      </div>
+    );
+  }
   // ENDED — show post-event CTA from config
   return (
     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-2">
@@ -284,10 +259,10 @@ function HeroCTA() {
         </span>
       </a>
       <a
-        href="#stages"
+        href="#explore"
         className="group flex items-center gap-2 px-7 py-3.5 bg-white/[0.03] border border-white/10 hover:border-white/40 rounded-full text-white/70 hover:text-white transition-all text-sm tracking-widest uppercase font-medium backdrop-blur-xl"
       >
-        Explore Stages{" "}
+        Explore {" "}
         <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
       </a>
     </div>
@@ -323,6 +298,15 @@ function HeroStatusBadge() {
       <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/[0.04] border border-yellow-400/20 rounded-full text-sm backdrop-blur-xl">
         <span className="text-yellow-200/80 font-medium tracking-wide">
           Booking temporarily paused
+        </span>
+      </div>
+    );
+  }
+  if (eventMode === EVENT_MODE.INFO_ONLY) {
+    return (
+      <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/[0.04] border border-purple-400/20 rounded-full text-sm backdrop-blur-xl">
+        <span className="text-purple-200/80 font-medium tracking-wide">
+          Free entry · No tickets required
         </span>
       </div>
     );
@@ -390,6 +374,13 @@ function TicketsSectionCTA() {
     );
   }
 
+  if (eventMode === EVENT_MODE.INFO_ONLY) {
+    return (
+      <p className="text-purple-300/70 font-medium tracking-wider text-sm border border-purple-400/20 px-8 py-4 rounded-full">
+        Free entry · Doors open at {EVENT_DETAILS.time}
+      </p>
+    );
+  }
   // ENDED
   return (
     <>
@@ -475,8 +466,8 @@ export default function TheNotebookConcert() {
           animate={{ opacity: 1, x: 0 }}
           className="hidden md:flex gap-8 text-sm tracking-widest uppercase font-medium items-center"
         >
-          <a href="#stages" className="hover:text-purple-300 transition-colors">
-            Stages
+          <a href="#explore" className="hover:text-purple-300 transition-colors">
+            Explore
           </a>
           <a
             href="#artists"
@@ -534,7 +525,7 @@ export default function TheNotebookConcert() {
             aria-modal="true"
             aria-label="Mobile navigation menu"
           >
-            {["stages", "artists", "experience", "tickets"].map((id) => (
+            {["explore", "artists", "experience", "tickets"].map((id) => (
               <a
                 key={id}
                 href={`#${id}`}
@@ -543,7 +534,7 @@ export default function TheNotebookConcert() {
               >
                 {id}
               </a>
-            ))}            
+            ))}
             {isBookingOpen && (
               <a
                 href="/booking"
@@ -694,17 +685,17 @@ export default function TheNotebookConcert() {
         </div>
       </section>
 
-      {/* ── 2. Stages ── */}
-      <section id="stages" className="relative py-28 md:py-36 px-6">
-        <SectionHeading subtitle="The Journey">7 Stages of Love</SectionHeading>
+      {/* ── 2. Explore ── */}
+      <section id="explore" className="relative py-28 md:py-36 px-6">
+        <SectionHeading subtitle={EVENT_DETAILS.exploreSubtitle}>{EVENT_DETAILS.exploreHeading}</SectionHeading>
         <div className="max-w-6xl mx-auto flex flex-col gap-7">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
-            {STAGES.slice(0, 4).map((stage, index) => (
+            {EXPLORE_ITEMS.slice(0, 4).map((stage, index) => (
               <StageCard key={stage.title} stage={stage} index={index} />
             ))}
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 lg:max-w-4xl mx-auto w-full">
-            {STAGES.slice(4).map((stage, index) => (
+            {EXPLORE_ITEMS.slice(4).map((stage, index) => (
               <StageCard key={stage.title} stage={stage} index={index + 4} />
             ))}
           </div>
@@ -932,7 +923,7 @@ function ArtistCard({ artist, index }) {
             <img
               src={artist.image}
               alt={`${artist.name} - ${artist.role}`}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              className="w-full h-full object-cover object-[50%_15%] transition-transform duration-700 group-hover:scale-110"
               onError={() => setImgError(true)}
             />
           ) : (

@@ -4,13 +4,14 @@
 //  Import getEventMode() anywhere — no arguments needed.
 // ============================================================
 
-import { EVENT_STATE } from "../config/event";
+import { EVENT_STATE, BOOKING_CONFIG } from "../config/event";
 
 export const EVENT_MODE = {
   LIVE: "LIVE",       // booking open, countdown visible, "Book Now" shown
   PAUSED: "PAUSED",   // booking temporarily closed, no "Book Now"
   SOLD_OUT: "SOLD_OUT", // redirect /booking → /sold-out
   ENDED: "ENDED",     // event over: no countdown, no booking, no download ticket
+  INFO_ONLY: "INFO_ONLY",   // ← new: no ticketing, just event info
 };
 
 /**
@@ -21,6 +22,7 @@ export const EVENT_MODE = {
  *   ENDED > SOLD_OUT > PAUSED > LIVE
  */
 export function getEventMode() {
+   if (!BOOKING_CONFIG.enabled) return EVENT_MODE.INFO_ONLY;
   const { isLive, isSoldOut, isEventEnded } = EVENT_STATE;
 
   if (isEventEnded) return EVENT_MODE.ENDED;
