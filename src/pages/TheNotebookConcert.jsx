@@ -107,7 +107,7 @@ const ARTISTS = [
   {
     name: "Sanam",
     role: "Vocalist",
-    image: "/artists/Sanam.png",
+    image: "/artists/sanam.png",
     bio: "A passionate vocalist bringing emotion, energy, and soulful melodies to every performance.",
     socials: {
       instagram: "https://instagram.com/sanam_musician",
@@ -118,7 +118,7 @@ const ARTISTS = [
   {
     name: "Rahul",
     role: "Pianist",
-    image: "/artists/Rahul.jpeg",
+    image: "/artists/rahul.jpeg",
     bio: "Creating expressive piano melodies that add warmth and depth to the music.",
     socials: {
       instagram: "https://instagram.com/rahultejwani94",
