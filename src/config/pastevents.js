@@ -67,6 +67,7 @@ export const PAST_EVENTS = [
       { name: "Akshay", role: "Drums", image: "/artists/akshay.PNG" },
       { name: "Sachin", role: "Bass Guitar", image: "/artists/sachin.png" },
     ],
+    
     videoUrl: "https://youtube.com/shorts/Q9hf5h-v6MY?si=n6cK3o4fX7Cy38-B",
   },
   // ↓ Add your next completed event here, following the same shape.
