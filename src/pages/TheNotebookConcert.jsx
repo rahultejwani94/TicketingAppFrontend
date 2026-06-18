@@ -22,6 +22,7 @@ import {
   X,
   Clock,
   ExternalLink,
+  Bell,
 } from "lucide-react";
 import ConcertLayout from "./ConcertLayout";
 import { GlassCard, SectionHeading } from "./ConcertLayout";
@@ -231,6 +232,30 @@ function HeroCTA() {
       </div>
     );
   }
+  if (eventMode === EVENT_MODE.FORMAT_TBD) {
+    return (
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center items-center mt-2">
+        <a
+          href={SOCIAL_LINKS.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`group px-10 py-4 w-full sm:w-auto bg-gradient-to-r ${CONCERT_THEME.colors.primary} ${CONCERT_THEME.colors.secondary} text-white font-bold tracking-wider uppercase text-sm rounded-full transition-all hover:scale-105 hover:shadow-[0_8px_30px_rgba(168,85,247,0.35)] focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400`}
+        >
+          <span className="flex items-center gap-2">
+            <Bell className="w-4 h-4" />
+            Follow for Updates
+          </span>
+        </a>
+        <a
+          href="#explore"
+          className="group flex items-center gap-2 px-7 py-3.5 bg-white/[0.03] border border-white/10 hover:border-white/40 rounded-full text-white/70 hover:text-white transition-all text-sm tracking-widest uppercase font-medium backdrop-blur-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+        >
+          Explore {" "}
+          <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </a>
+      </div>
+    );
+  }
   if (eventMode === EVENT_MODE.INFO_ONLY) {
     return (
       <div className="flex justify-center mt-2">
@@ -298,6 +323,15 @@ function HeroStatusBadge() {
       <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/[0.04] border border-yellow-400/20 rounded-full text-sm backdrop-blur-xl">
         <span className="text-yellow-200/80 font-medium tracking-wide">
           Booking temporarily paused
+        </span>
+      </div>
+    );
+  }
+  if (eventMode === EVENT_MODE.FORMAT_TBD) {
+    return (
+      <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/[0.04] border border-purple-400/20 rounded-full text-sm backdrop-blur-xl">
+        <span className="text-purple-200/80 font-medium tracking-wide">
+          Event details coming soon
         </span>
       </div>
     );
@@ -371,6 +405,25 @@ function TicketsSectionCTA() {
       <p className="text-yellow-300/70 font-semibold tracking-wider uppercase text-sm border border-yellow-400/20 px-8 py-4 rounded-full">
         Booking Temporarily Paused — Check Back Soon
       </p>
+    );
+  }
+
+  if (eventMode === EVENT_MODE.FORMAT_TBD) {
+    return (
+      <>
+        <a
+          href={SOCIAL_LINKS.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r ${CONCERT_THEME.colors.primary} ${CONCERT_THEME.colors.secondary} text-white font-bold tracking-wider uppercase text-sm rounded-full hover:shadow-[0_10px_40px_rgba(236,72,153,0.45)] hover:scale-105 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400`}
+        >
+          <Bell className="w-5 h-5" />
+          Follow for Updates
+        </a>
+        <p className="mt-5 text-white/40 text-sm">
+          Ticket details will be announced soon.
+        </p>
+      </>
     );
   }
 
@@ -487,6 +540,12 @@ export default function TheNotebookConcert() {
           >
             Tickets
           </a>
+          <a
+            href="/past-events"
+            className="hover:text-purple-300 transition-colors"
+          >
+            Past Events
+          </a>
 
           {/* Book Now — only when live */}
           {isBookingOpen && (
@@ -535,6 +594,13 @@ export default function TheNotebookConcert() {
                 {id}
               </a>
             ))}
+            <a
+              href="/past-events"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-2xl font-bold tracking-wider hover:text-purple-300 transition-colors"
+            >
+              Past Events
+            </a>
             {isBookingOpen && (
               <a
                 href="/booking"
@@ -827,7 +893,13 @@ export default function TheNotebookConcert() {
               THE NOTEBOOK CONCERT
             </span>
           </a>
-          <div className="flex gap-6">
+          <div className="flex gap-6 items-center">
+            <a
+              href="/past-events"
+              className="text-white/25 hover:text-purple-300 text-xs tracking-widest uppercase transition-colors"
+            >
+              Past Events
+            </a>
             {[
               {
                 href: SOCIAL_LINKS.instagram,

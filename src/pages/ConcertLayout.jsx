@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 // Shared noise texture - self-hosted version for reliability
 const NOISE_TEXTURE = "data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E";
@@ -31,6 +33,42 @@ export default function ConcertLayout({ children, showBackground = true }) {
         aria-hidden="true"
       />
     </div>
+  );
+}
+
+// Lightweight nav for inner pages (Past Events, ticket flows, etc.) —
+// mirrors the homepage nav's fixed, blurred bar so every page reads
+// as part of the same site, just without the in-page section links.
+export function PageNav({ backTo = "/", backLabel = "Back to Home" }) {
+  return (
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 flex justify-between items-center bg-black/20 backdrop-blur-xl border-b border-white/5"
+      role="navigation"
+      aria-label="Page navigation"
+    >
+      <Link
+        to="/"
+        className="flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-lg"
+      >
+        <img
+          src="/logo.png"
+          alt=""
+          className="w-10 h-10 object-contain drop-shadow-[0_0_8px_rgba(168,85,247,0.6)]"
+          aria-hidden="true"
+        />
+        <span className="text-lg font-bold tracking-tighter hidden sm:block">
+          THE NOTEBOOK CONCERT
+        </span>
+      </Link>
+
+      <Link
+        to={backTo}
+        className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm font-medium tracking-widest uppercase focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-lg px-2 py-1"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        {backLabel}
+      </Link>
+    </nav>
   );
 }
 

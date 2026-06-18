@@ -2,7 +2,15 @@
 export const SUPPORT_PHONES = ["9004940265", "9373695607"];
 
 export const BOOKING_CONFIG = {
-  enabled: false, // ← flip to false for info-only / free / non-ticketed shows
+  enabled: false, // ← flip to true once ticketing is open and ready to go live
+
+  // Only checked while enabled=false (i.e. there's no booking flow yet).
+  //   true  → you've CONFIRMED the event is free entry, no tickets ever.
+  //           Shows "Free entry · No tickets required" messaging.
+  //   false → format is still undecided (could end up free or ticketed).
+  //           Shows neutral "Details coming soon" messaging instead —
+  //           use this while you haven't made the call yet.
+  freeEntryConfirmed: false,
 };
 
 // Event details - centralized for consistency

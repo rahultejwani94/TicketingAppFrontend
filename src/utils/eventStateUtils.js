@@ -11,7 +11,8 @@ export const EVENT_MODE = {
   PAUSED: "PAUSED",   // booking temporarily closed, no "Book Now"
   SOLD_OUT: "SOLD_OUT", // redirect /booking → /sold-out
   ENDED: "ENDED",     // event over: no countdown, no booking, no download ticket
-  INFO_ONLY: "INFO_ONLY",   // ← new: no ticketing, just event info
+  INFO_ONLY: "INFO_ONLY",   // no ticketing — confirmed free entry, just event info
+  FORMAT_TBD: "FORMAT_TBD", // ← new: format genuinely undecided (free vs ticketed)
 };
 
 /**
@@ -20,9 +21,14 @@ export const EVENT_MODE = {
  *
  * Priority order:
  *   ENDED > SOLD_OUT > PAUSED > LIVE
+ *   (when BOOKING_CONFIG.enabled is false: FORMAT_TBD or INFO_ONLY instead)
  */
 export function getEventMode() {
-   if (!BOOKING_CONFIG.enabled) return EVENT_MODE.INFO_ONLY;
+  if (!BOOKING_CONFIG.enabled) {
+    return BOOKING_CONFIG.freeEntryConfirmed
+      ? EVENT_MODE.INFO_ONLY
+      : EVENT_MODE.FORMAT_TBD;
+  }
   const { isLive, isSoldOut, isEventEnded } = EVENT_STATE;
 
   if (isEventEnded) return EVENT_MODE.ENDED;
@@ -41,3 +47,4 @@ export const isBookingOpen = eventMode === EVENT_MODE.LIVE;
 export const isSoldOut     = eventMode === EVENT_MODE.SOLD_OUT;
 export const isEventOver   = eventMode === EVENT_MODE.ENDED;
 export const isPaused      = eventMode === EVENT_MODE.PAUSED;
+export const isFormatTBD   = eventMode === EVENT_MODE.FORMAT_TBD;
