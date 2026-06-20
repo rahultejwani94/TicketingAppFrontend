@@ -50,7 +50,7 @@ export default function Success() {
         <div className="min-h-screen flex items-center justify-center px-4">
           <div className="text-center">
             <img
-              src="/logo.png"
+              src="/logo.webp"
               alt=""
               className="w-16 h-16 mx-auto mb-4 opacity-50"
               aria-hidden="true"

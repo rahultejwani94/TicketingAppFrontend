@@ -68,12 +68,12 @@ function PastEventCard({ event, index }) {
         className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-2xl"
       >
         <GlassCard className="overflow-hidden h-full flex flex-col group">
-          <div className="relative h-48 overflow-hidden">
+          <div className="relative h-48 overflow-hidden bg-black/40">
             <img
               src={event.coverImage}
               alt={`${event.title} — ${event.subtitle}`}
               loading="lazy"
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
             <div className="absolute top-3 left-3 backdrop-blur-md bg-black/40 border border-white/10 rounded-full px-3 py-1 text-xs tracking-wide text-white/80">

@@ -140,7 +140,7 @@ export default function AdminLogin() {
           <div className="text-center mb-8">
             <a href="/" className="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-lg">
               <img 
-                src="/logo.png" 
+                src="/logo.webp" 
                 alt={EVENT_DETAILS.name}
                 className="w-20 h-20 mx-auto object-contain mb-4 drop-shadow-[0_0_20px_rgba(168,85,247,0.4)]"
               />

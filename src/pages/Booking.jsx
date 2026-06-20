@@ -466,7 +466,7 @@ export default function Booking({ isAdmin = false }) {
               className="inline-block group focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-lg"
             >
               <img
-                src="/logo.png"
+                src="/logo.webp"
                 alt="The Notebook Concert"
                 className="w-32 h-20 mx-auto object-contain group-hover:scale-110 transition-transform drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]"
               />
@@ -911,7 +911,7 @@ export default function Booking({ isAdmin = false }) {
               className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-full text-sm text-white/60 hover:text-white hover:border-purple-400/30 transition-all hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
             >
               <img
-                src="/logo.png"
+                src="/logo.webp"
                 alt=""
                 className="w-5 h-5 object-contain opacity-70 drop-shadow-[0_0_4px_rgba(168,85,247,0.5)]"
                 aria-hidden="true"

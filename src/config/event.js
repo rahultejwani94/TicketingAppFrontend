@@ -112,37 +112,37 @@ const STAGES_OF_LOVE = [
   {
     title: "Attraction",
     desc: "Where every glance feels electric.",
-    image: "/stages/attraction.jpg",
+    image: "/stages/attraction.webp",
   },
   {
     title: "Attachment",
     desc: "When absence starts to hurt.",
-    image: "/stages/attachment.jpg",
+    image: "/stages/attachment.webp",
   },
   {
     title: "Love",
     desc: "The warmth of being truly seen.",
-    image: "/stages/love.jpg",
+    image: "/stages/love.webp",
   },
   {
     title: "Trust",
     desc: "Finding peace in another soul.",
-    image: "/stages/trust.jpg",
+    image: "/stages/trust.webp",
   },
   {
     title: "Worship",
     desc: "When love becomes devotion.",
-    image: "/stages/worship.jpg",
+    image: "/stages/worship.webp",
   },
   {
     title: "Madness",
     desc: "Where emotions consume reason.",
-    image: "/stages/madness_1.jpg",
+    image: "/stages/madness_1.webp",
   },
   {
     title: "Death",
     desc: "Some love stories never really end.",
-    image: "/stages/death_2.jpg",
+    image: "/stages/death_2.webp",
   },
 ];
 
@@ -151,22 +151,22 @@ const CHAPTER_OF_FRIENDSHIP = [
   {
     title: "Meeting",
     desc: "Where it all began.",
-    image: "/friendship/meeting.jpg",
+    image: "/friendship/meeting.webp",
   },
   {
     title: "Bond",
     desc: "Strangers become family.",
-    image: "/friendship/bond.jpg",
+    image: "/friendship/bond.webp",
   },
   {
     title: "Gang",
     desc: "Together, always unstoppable.",
-    image: "/friendship/gang.jpg",
+    image: "/friendship/gang.webp",
   },
   {
     title: "Memories",
     desc: "Moments we'll never forget.",
-    image: "/friendship/memories.jpg",
+    image: "/friendship/memories.webp",
   },
   {
     title: "Challenges",
@@ -181,7 +181,7 @@ const CHAPTER_OF_FRIENDSHIP = [
   {
     title: "Forever",
     desc: "Some friendships never fade.",
-    image: "/friendship/forever.jpg",
+    image: "/friendship/forever.webp",
   },
 ];
 

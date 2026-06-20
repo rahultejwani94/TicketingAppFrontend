@@ -144,7 +144,7 @@ export default function DownloadTicket() {
           <div className="mb-6 bg-gradient-to-r from-purple-600/20 via-pink-600/10 to-purple-600/20 border border-purple-400/20 rounded-xl p-4 backdrop-blur-md">
             <div className="flex items-center gap-3">
               <img
-                src="/logo.png"
+                src="/logo.webp"
                 alt=""
                 className="w-10 h-10 object-contain"
                 aria-hidden="true"
@@ -164,7 +164,7 @@ export default function DownloadTicket() {
             {/* Logo */}
             <div className="text-center mb-6">
               <img
-                src="/logo.png"
+                src="/logo.webp"
                 alt={EVENT_DETAILS.name}
                 className="w-20 h-16 mx-auto object-contain mb-3 opacity-80"
               />
@@ -260,7 +260,7 @@ export default function DownloadTicket() {
               className="inline-flex items-center gap-2 text-xs text-white/40 hover:text-white transition focus:outline-none focus-visible:text-white"
             >
               <img
-                src="/logo.png"
+                src="/logo.webp"
                 alt=""
                 className="w-4 h-4 object-contain opacity-50"
                 aria-hidden="true"

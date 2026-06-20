@@ -504,7 +504,7 @@ export default function TheNotebookConcert() {
           className="flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-lg"
         >
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt=""
             className="w-10 h-10 object-contain drop-shadow-[0_0_8px_rgba(168,85,247,0.6)]"
             aria-hidden="true"
@@ -653,7 +653,7 @@ export default function TheNotebookConcert() {
             <div className="relative">
               <div className="absolute inset-0 bg-purple-500/20 blur-2xl rounded-full" />
               <motion.img
-                src="/logo.png"
+                src="/logo.webp"
                 alt="The Notebook Concert"
                 animate={{ y: [0, -6, 0] }}
                 transition={{
@@ -884,7 +884,7 @@ export default function TheNotebookConcert() {
             className="flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-lg"
           >
             <img
-              src="/logo.png"
+              src="/logo.webp"
               alt=""
               className="w-8 h-8 object-contain opacity-60"
               aria-hidden="true"
@@ -954,6 +954,8 @@ function StageCard({ stage, index }) {
         <img
           src={stage.image}
           alt=""
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-110 transition-transform duration-700"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/65" />
@@ -995,6 +997,8 @@ function ArtistCard({ artist, index }) {
             <img
               src={artist.image}
               alt={`${artist.name} - ${artist.role}`}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover object-[50%_15%] transition-transform duration-700 group-hover:scale-110"
               onError={() => setImgError(true)}
             />

@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet-async";
 // URL on the page (canonical, og:url, og:image, JSON-LD) is built from it.
 const SITE_URL = "https://thenotebookconcert.in";
 const SITE_NAME = "The Notebook Concert";
-const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
+const DEFAULT_IMAGE = `${SITE_URL}/og-image.webp`;
 
 const toAbsoluteUrl = (path) => {
   if (!path) return DEFAULT_IMAGE;

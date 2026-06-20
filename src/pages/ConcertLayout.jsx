@@ -51,7 +51,7 @@ export function PageNav({ backTo = "/", backLabel = "Back to Home" }) {
         className="flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-lg"
       >
         <img
-          src="/logo.png"
+          src="/logo.webp"
           alt=""
           className="w-10 h-10 object-contain drop-shadow-[0_0_8px_rgba(168,85,247,0.6)]"
           aria-hidden="true"
