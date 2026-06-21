@@ -48,6 +48,7 @@ export function PageNav({ backTo = "/", backLabel = "Back to Home" }) {
     >
       <Link
         to="/"
+        aria-label="The Notebook Concert — Home"
         className="flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-lg"
       >
         <img

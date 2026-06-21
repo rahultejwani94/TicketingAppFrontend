@@ -108,7 +108,7 @@ const ARTISTS = [
   {
     name: "Sanam",
     role: "Vocalist",
-    image: "/artists/sanam.png",
+    image: "/artists/sanam.webp",
     bio: "A passionate vocalist bringing emotion, energy, and soulful melodies to every performance.",
     socials: {
       instagram: "https://instagram.com/sanam_musician",
@@ -178,16 +178,14 @@ function HeroCTA() {
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center items-center mt-2">
         <a
           href="/booking"
-          className={`group px-10 py-4 w-full sm:w-auto bg-gradient-to-r ${CONCERT_THEME.colors.primary} ${CONCERT_THEME.colors.secondary} text-white font-bold tracking-wider uppercase text-sm rounded-full transition-all hover:scale-105 hover:shadow-[0_8px_30px_rgba(168,85,247,0.35)] focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400`}
+          className={`group inline-flex items-center justify-center gap-2 px-8 sm:px-10 py-4 w-full sm:w-auto bg-gradient-to-r ${CONCERT_THEME.colors.primary} ${CONCERT_THEME.colors.secondary} text-white font-bold tracking-wide sm:tracking-wider uppercase text-sm rounded-full transition-all hover:scale-105 hover:shadow-[0_8px_30px_rgba(168,85,247,0.35)] focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400`}
         >
-          <span className="flex items-center gap-2">
-            <Ticket className="w-4 h-4" />
-            Book Tickets — From ₹{homepagePricing.pricePerTicket}
-          </span>
+          <Ticket className="w-4 h-4 shrink-0" />
+          Book Tickets — From ₹{homepagePricing.pricePerTicket}
         </a>
         <a
           href="#explore"
-          className="group flex items-center gap-2 px-7 py-3.5 bg-white/[0.03] border border-white/10 hover:border-white/40 rounded-full text-white/70 hover:text-white transition-all text-sm tracking-widest uppercase font-medium backdrop-blur-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+          className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 w-full sm:w-auto bg-white/[0.03] border border-white/10 hover:border-white/40 rounded-full text-white/70 hover:text-white transition-all text-sm tracking-widest uppercase font-medium backdrop-blur-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
         >
           Explore {" "}
           <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -239,16 +237,14 @@ function HeroCTA() {
           href={SOCIAL_LINKS.instagram}
           target="_blank"
           rel="noopener noreferrer"
-          className={`group px-10 py-4 w-full sm:w-auto bg-gradient-to-r ${CONCERT_THEME.colors.primary} ${CONCERT_THEME.colors.secondary} text-white font-bold tracking-wider uppercase text-sm rounded-full transition-all hover:scale-105 hover:shadow-[0_8px_30px_rgba(168,85,247,0.35)] focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400`}
+          className={`group inline-flex items-center justify-center gap-2 px-8 sm:px-10 py-4 w-full sm:w-auto bg-gradient-to-r ${CONCERT_THEME.colors.primary} ${CONCERT_THEME.colors.secondary} text-white font-bold tracking-wide sm:tracking-wider uppercase text-sm rounded-full transition-all hover:scale-105 hover:shadow-[0_8px_30px_rgba(168,85,247,0.35)] focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400`}
         >
-          <span className="flex items-center gap-2">
-            <Bell className="w-4 h-4" />
-            Follow for Updates
-          </span>
+          <Bell className="w-4 h-4 shrink-0" />
+          Follow for Updates
         </a>
         <a
           href="#explore"
-          className="group flex items-center gap-2 px-7 py-3.5 bg-white/[0.03] border border-white/10 hover:border-white/40 rounded-full text-white/70 hover:text-white transition-all text-sm tracking-widest uppercase font-medium backdrop-blur-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+          className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 w-full sm:w-auto bg-white/[0.03] border border-white/10 hover:border-white/40 rounded-full text-white/70 hover:text-white transition-all text-sm tracking-widest uppercase font-medium backdrop-blur-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
         >
           Explore {" "}
           <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -501,6 +497,7 @@ export default function TheNotebookConcert() {
           href="/"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
+          aria-label="The Notebook Concert — Home"
           className="flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-lg"
         >
           <img
@@ -625,6 +622,12 @@ export default function TheNotebookConcert() {
         >
           <img
             src="https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            srcSet="
+              https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=800 800w,
+              https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1280 1280w,
+              https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w
+            "
+            sizes="100vw"
             alt=""
             className="w-full h-full object-cover opacity-40 scale-110"
             loading="eager"
@@ -670,9 +673,9 @@ export default function TheNotebookConcert() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            initial={{ y: 24 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <p className="text-purple-200/80 text-xs md:text-sm tracking-[0.35em] uppercase mb-5 font-medium">
               Presents
